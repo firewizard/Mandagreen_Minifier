@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Oxygen_Minifier>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Oxygen_Minifier>
+    </modules>
+</config>

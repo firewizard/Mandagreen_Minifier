@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		 <dev>
+				<groups>
+					<oxy_minifier translate="label" module="oxy_minifier">
+						 <label>CSS &amp; JS Minifier (by mandagreen.com)</label>
+						 <sort_order>127</sort_order>
+						 <show_in_default>1</show_in_default>
+						 <show_in_website>1</show_in_website>
+						 <show_in_store>0</show_in_store>
+						 <fields>
+								<active_js translate="label">
+									<label>Enable javascript minifier</label>
+									<comment><![CDATA[<em>Note:</em> Make sure you test this before using it in production. All js files will be minified, so they should be properly written. Read more at <a href="http://javascript.crockford.com/jsmin.html" target="_blank">javascript.crockford.com/jsmin.html</a>]]></comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+								</active_js>
+
+								<active_css translate="label">
+									<label>Enable CSS minifier</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>2</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+								</active_css>
+
+								<active_convert_colors translate="label">
+									<label>CSS - Convert color values</label>
+									<comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Convert "rgb(200,60%,5)" to hex "#c89905"]]></comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>3</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+								</active_convert_colors>
+
+								<active_compress_colors translate="label">
+									<label>CSS - Compress color values</label>
+									<comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Compress color values from "#aabbcc" to "#abc"]]></comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>4</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+								</active_compress_colors>
+
+								<active_compress_unit_values translate="label">
+									<label>CSS - Compress unit values</label>
+									<comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Compresses "0.5px" to ".5px", "0px" to "0" and "0 0 0 0" to "0"]]></comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+								</active_compress_unit_values>
+						 </fields>
+					</oxy_minifier>
+				</groups>
+		 </dev>
+	</sections>
+</config>
