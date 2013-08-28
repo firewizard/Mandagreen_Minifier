@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Mandagreen_Minifier>
+			<version>1.0.1</version>
+		</Mandagreen_Minifier>
+	</modules>
+	<global>
+		<models>
+			<core>
+				<rewrite>
+					<design_package>Mandagreen_Minifier_Model_DesignPackage</design_package>
+				</rewrite>
+			</core>
+		</models>
+		
+		<helpers>
+			<mgminifier>
+				<class>Mandagreen_Minifier_Helper</class>
+			</mgminifier>
+		</helpers>
+	</global>
+	
+	<default>
+		<dev>
+			<mgminifier>
+				<active_js>0</active_js>
+				<active_css>1</active_css>
+				<active_convert_rgb_colors>1</active_convert_rgb_colors>
+				<active_convert_hsl_colors>1</active_convert_hsl_colors>
+				<active_compress_colors>1</active_compress_colors>
+				<active_compress_unit_values>1</active_compress_unit_values>
+				<active_convert_fontweight>0</active_convert_fontweight>
+				<active_convert_namedcolors>0</active_convert_namedcolors>
+				<active_replace_variables>0</active_replace_variables>
+			</mgminifier>
+		</dev>
+	</default>
+</config>
