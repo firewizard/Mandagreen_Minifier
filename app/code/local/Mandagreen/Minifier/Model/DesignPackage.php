@@ -42,18 +42,24 @@ class Mandagreen_Minifier_Model_DesignPackage extends Mage_Core_Model_Design_Pac
 	}
 	
 	public function getMergedJsUrl($files) {
-		$targetFilename = md5(implode(',', $files)) . '.js';
+		$hash = md5(implode(',', $files));
+		$targetFilename = $hash . '.js';
+		$targetFilenameMerged = $hash . '.min.js';
 		$targetDir = $this->_initMergerDir('js');
+		
 		if( !$targetDir ) {
 			return '';
 		}
-		if( Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeJs'), 'js') ) {
+		
+		if( Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, null, 'js') ) {
+			if( Mage::getStoreConfig(self::KEY_ENABLE_JS) && !is_file($targetDir . DS . $targetFilenameMerged) ) {
+				file_put_contents($targetDir . DS . $targetFilenameMerged, Mandagreen_Minifier_Model_JSMin::minify(file_get_contents($targetDir . DS . $targetFilename)), LOCK_EX);
+				$targetFilename = $targetFilenameMerged;
+			}
+			
 			return Mage::getBaseUrl('media') . 'js/' . $targetFilename;
 		}
+		
 		return '';
-	}
-
-	public function beforeMergeJs($file, $contents) {
-		return Mage::getStoreConfig(self::KEY_ENABLE_JS) ? Mandagreen_Minifier_Model_JSMin::minify($contents) : $contents;
 	}
 }
