@@ -1948,6 +1948,12 @@ class CssMinifier
 	 */
 	private $minified = "";
 	/**
+	 * Plugins to pass to the parser
+	 * 
+	 * @var string
+	 */
+	private $parserPlugins = array();
+	/**
 	 * Constructer.
 	 * 
 	 * Creates instances of {@link aCssMinifierFilter filters} and {@link aCssMinifierPlugin plugins}.
@@ -1957,8 +1963,9 @@ class CssMinifier
 	 * @param array $plugins Plugin configuration [optional]
 	 * @return void
 	 */
-	public function __construct($source = null, array $filters = null, array $plugins = null)
+	public function __construct($source = null, array $filters = null, array $plugins = null, array $parserPlugins = null)
 		{
+		$this->parserPlugins = is_array($parserPlugins) ? $parserPlugins : array(); 
 		$filters = array_merge(array
 			(
 			"ImportImports"					=> false,
@@ -2059,7 +2066,7 @@ class CssMinifier
 		{
 		// Variables
 		$r						= "";
-		$parser					= new CssParser($source);
+		$parser					= new CssParser($source, $this->parserPlugins);
 		$tokens					= $parser->getTokens();
 		$filters 				= $this->filters;
 		$filterCount			= count($this->filters);
@@ -2266,10 +2273,10 @@ class Mandagreen_Minifier_Model_CssMin
 	 * @param array $plugins Plugin configuration [optional]
 	 * @return string Minified CSS
 	 */
-	public static function minify($source, array $filters = null, array $plugins = null)
+	public static function minify($source, array $filters = null, array $plugins = null, array $parserPlugins = null)
 		{
 		self::$errors = array();
-		$minifier = new CssMinifier($source, $filters, $plugins);
+		$minifier = new CssMinifier($source, $filters, $plugins, $parserPlugins);
 		return $minifier->getMinified();
 		}
 	/**

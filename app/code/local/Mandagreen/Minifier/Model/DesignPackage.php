@@ -12,6 +12,39 @@ class Mandagreen_Minifier_Model_DesignPackage extends Mage_Core_Model_Design_Pac
 	const KEY_ENABLE_REPLACE_VARIABLES    = 'dev/mgminifier/active_replace_variables';
 	
 	
+	public function getMergedCssUrl($files) {
+		// secure or unsecure
+		$isSecure = Mage::app()->getRequest()->isSecure();
+		$mergerDir = $isSecure ? 'css_secure' : 'css';
+		$targetDir = $this->_initMergerDir($mergerDir);
+		if( !$targetDir ) {
+			return '';
+		}
+
+		// base hostname & port
+		$baseMediaUrl = Mage::getBaseUrl('media', $isSecure);
+		$hostname = parse_url($baseMediaUrl, PHP_URL_HOST);
+		$port = parse_url($baseMediaUrl, PHP_URL_PORT);
+		if( false === $port ) {
+			$port = $isSecure ? 443 : 80;
+		}
+
+		/* add more variables to the hashed name so that merged file name depend on the content */
+		$entropy = '';
+		foreach( $files as $file ) {
+			$entropy .= md5_file($file);
+		}
+		/* end */
+		
+		// merge into target file
+		$targetFilename = md5(implode(',', $files) . "|$entropy|{$hostname}|{$port}") . '.css';
+		if( $this->_mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeCss'), 'css') ) {
+			return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
+		}
+		
+		return '';
+	}
+	
 	public function beforeMergeCss($file, $contents) {
 		$contents = parent::beforeMergeCss($file, $contents);
 		if( !Mage::getStoreConfig(self::KEY_ENABLE_CSS) ) { return $contents; }
@@ -35,20 +68,46 @@ class Mandagreen_Minifier_Model_DesignPackage extends Mage_Core_Model_Design_Pac
 				"ConvertNamedColors"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_NAMED_COLORS),
 				"CompressColorValues"           => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRESS_COLORS),
 				"CompressUnitValues"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRES_UNIT_VALUES),
-				"CompressExpressionValues"      => false
+				"CompressExpressionValues"      => false,
 		);
 		
-		return Mandagreen_Minifier_Model_CssMin::minify($contents, $filters, $plugins);
+		$parserPlugins = array(
+				'Comment'     => true,
+				'String'      => true,
+				'Url'         => true,
+				'Expression'  => true,
+				'Ruleset'     => true,
+				'AtCharset'   => true,
+				'AtFontFace'  => true,
+				'AtImport'    => true,
+				'AtKeyframes' => false,
+				'AtMedia'     => true,
+				'AtPage'      => true,
+				'AtVariables' => true,
+		);
+		
+		return Mandagreen_Minifier_Model_CssMin::minify($contents, $filters, $plugins, $parserPlugins);
 	}
 	
 	public function getMergedJsUrl($files) {
-		$hash = md5(implode(',', $files));
+		/* add more variables to the hashed name so that merged file name depend on the content */
+		$entropy = '';
+		foreach( $files as $file ) {
+			$entropy .= md5_file($file);
+		}
+		/* end */
+		
+		$hash = md5(implode(',', $files) . "|$entropy");
 		$targetFilename = $hash . '.js';
 		$targetFilenameMerged = $hash . '.min.js';
 		$targetDir = $this->_initMergerDir('js');
 		
 		if( !$targetDir ) {
 			return '';
+		}
+		
+		if( is_file($targetDir . DS . $targetFilenameMerged) ) {
+			return Mage::getBaseUrl('media') . 'js/' . $targetFilenameMerged;
 		}
 		
 		if( Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, null, 'js') ) {
