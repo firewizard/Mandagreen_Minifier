@@ -85,6 +85,7 @@ class Mandagreen_Minifier_Model_JSMin {
    */
   public function __construct($input) {
     $this->input       = str_replace("\r\n", "\n", $input);
+    $this->input = $this->lock($this->input);
     $this->inputLength = strlen($this->input);
   }
 
@@ -318,7 +319,7 @@ class Mandagreen_Minifier_Model_JSMin {
       }
     }
 
-    return $this->output;
+    return $this->unlock($this->output);
   }
 
   /**
@@ -379,6 +380,18 @@ class Mandagreen_Minifier_Model_JSMin {
     $this->lookAhead = $this->get();
     return $this->lookAhead;
   }
+    
+    protected function lock($js) {
+    	$this->locks[' '] = '"LOCK---' . crc32(time()) . '"';
+    	return preg_replace('/([+-])\s+([+-])/', "$1{$this->locks[' ']}$2", $js);
+    }
+    
+    protected function unlock($js) {
+    	foreach($this->locks as $pattern => $lock) {
+    		$js = str_replace($lock, $pattern, $js);
+    	}
+    	return $js;
+    }
 }
 
 // -- Exceptions ---------------------------------------------------------------
