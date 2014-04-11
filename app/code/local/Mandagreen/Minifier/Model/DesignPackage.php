@@ -32,6 +32,8 @@ class Mandagreen_Minifier_Model_DesignPackage extends Mage_Core_Model_Design_Pac
 		/* add more variables to the hashed name so that merged file name depend on the content */
 		$entropy = '';
 		foreach( $files as $file ) {
+			if( !is_file($file) ) { continue; }
+
 			$entropy .= md5_file($file);
 		}
 		/* end */
@@ -93,6 +95,8 @@ class Mandagreen_Minifier_Model_DesignPackage extends Mage_Core_Model_Design_Pac
 		/* add more variables to the hashed name so that merged file name depend on the content */
 		$entropy = '';
 		foreach( $files as $file ) {
+			if( !is_file($file) ) { continue; }
+			
 			$entropy .= md5_file($file);
 		}
 		/* end */
