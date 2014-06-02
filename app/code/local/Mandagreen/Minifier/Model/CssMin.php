@@ -2319,7 +2319,7 @@ class Mandagreen_Minifier_Model_CssMin
 		}
 	}
 // Initialises CssMin
-Mandagreen_Minifier_Model_CssMin::initialise();
+#Mandagreen_Minifier_Model_CssMin::initialise();
 
 /**
  * This {@link aCssMinifierFilter minifier filter} import external css files defined with the @import at-rule into the 
