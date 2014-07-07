@@ -2,17 +2,26 @@
 <config>
 	<modules>
 		<Mandagreen_Minifier>
-			<version>1.0.4</version>
+			<version>1.1.0</version>
 		</Mandagreen_Minifier>
 	</modules>
 	<global>
 		<models>
 			<core>
 				<rewrite>
-					<design_package>Mandagreen_Minifier_Model_DesignPackage</design_package>
+					<layout_update>Mandagreen_Minifier_Core_Model_Layout_Update</layout_update>
+					<design_package>Mandagreen_Minifier_Core_Model_Design_Package</design_package>
 				</rewrite>
 			</core>
 		</models>
+
+        <blocks>
+            <page>
+                <rewrite>
+                    <html_head>Mandagreen_Minifier_Page_Block_Html_Head</html_head>
+                </rewrite>
+            </page>
+        </blocks>
 		
 		<helpers>
 			<mgminifier>
@@ -26,6 +35,9 @@
 			<mgminifier>
 				<active_js>0</active_js>
 				<active_css>1</active_css>
+                <merge_css_by_handle>1</merge_css_by_handle>
+                <merge_js_by_handle>1</merge_js_by_handle>
+                <clean_handles>1</clean_handles>
 				<active_convert_rgb_colors>1</active_convert_rgb_colors>
 				<active_convert_hsl_colors>1</active_convert_hsl_colors>
 				<active_compress_colors>1</active_compress_colors>
