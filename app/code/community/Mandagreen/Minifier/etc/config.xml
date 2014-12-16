@@ -35,8 +35,8 @@
 			<mgminifier>
 				<active_js>0</active_js>
 				<active_css>1</active_css>
-                <merge_css_by_handle>1</merge_css_by_handle>
-                <merge_js_by_handle>1</merge_js_by_handle>
+                <merge_css_by_handle>0</merge_css_by_handle>
+                <merge_js_by_handle>0</merge_js_by_handle>
                 <clean_handles>1</clean_handles>
 				<active_convert_rgb_colors>1</active_convert_rgb_colors>
 				<active_convert_hsl_colors>1</active_convert_hsl_colors>

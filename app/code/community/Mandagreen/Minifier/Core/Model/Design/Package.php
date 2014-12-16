@@ -142,7 +142,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
             return Mage::getBaseUrl('media') . $mergerDir . '/' . $targetFilenameMerged;
         }
 
-        if (Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, null, 'js')) {
+        if (Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeJs'), 'js')) {
             if (Mage::getStoreConfig(self::KEY_ENABLE_JS) && !is_file($targetDir . DS . $targetFilenameMerged)) {
                 file_put_contents(
                     $targetDir . DS . $targetFilenameMerged,
@@ -159,5 +159,10 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
 
         #Varien_Profiler::stop('Mandagreen_Minifier::getMergedJsUrl');
         return '';
+    }
+
+    public function beforeMergeJs($file, $contents)
+    {
+        return rtrim($contents, ';') . ';';
     }
 }
