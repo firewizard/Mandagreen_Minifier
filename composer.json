@@ -1,0 +1,15 @@
+{
+    "name": "firewizard/magento-minifier",
+    "type": "magento-module",
+    "description":"Magento on-the-fly CSS & JS minifier.",
+    "license": "GPL v3",
+    "authors":[
+        {
+            "name":"Cristian Nicolescu",
+			"homepage":"http://mandagreen.com"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

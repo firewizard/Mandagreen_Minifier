@@ -1,0 +1,3 @@
+app/code/community/Mandagreen/Minifier/              app/code/community/Mandagreen/Minifier/
+app/etc/modules/Mandagreen_Minifier.xml              app/etc/modules/Mandagreen_Minifier.xml
+app/locale/en_US/Mandagreen_Minifier.csv             app/locale/en_US/Mandagreen_Minifier.csv

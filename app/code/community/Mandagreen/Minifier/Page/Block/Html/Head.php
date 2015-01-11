@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @todo Use events to parse html before output and remove this override
+ */
+ 
 class Mandagreen_Minifier_Page_Block_Html_Head extends Mage_Page_Block_Html_Head
 {
     public function getCssJsHtml()

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Mandagreen_Minifier>
-			<version>1.1.0</version>
+			<version>1.1.1</version>
 		</Mandagreen_Minifier>
 	</modules>
 	<global>
@@ -29,6 +29,18 @@
 			</mgminifier>
 		</helpers>
 	</global>
+	
+	<frontend>
+        <translate>
+            <modules>
+                <Mandagreen_Minifier>
+                    <files>
+                        <default>Mandagreen_Minifier.csv</default>
+                    </files>
+                </Mandagreen_Minifier>
+            </modules>
+        </translate>
+	</frontend>
 	
 	<default>
 		<dev>
