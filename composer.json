@@ -1,12 +1,13 @@
 {
     "name": "firewizard/magento-minifier",
     "type": "magento-module",
-    "description":"Magento on-the-fly CSS & JS minifier.",
-    "license": "GPL v3",
-    "authors":[
+    "description": "Magento on-the-fly CSS & JS minifier",
+    "license": ["GPL-3.0"],
+    "homepage": "http://mandagreen.com/code/magento-minifier/",
+    "authors": [
         {
-            "name":"Cristian Nicolescu",
-			"homepage":"http://mandagreen.com"
+            "name": "Cristian Nicolescu",
+            "homepage": "http://mandagreen.com"
         }
     ],
     "require": {
