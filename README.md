@@ -22,7 +22,7 @@ The extension uses CssMin and JsMin to sqeeze every byte out of the css and java
 
 All available settings can be found under Admin - Configuration - Developer.
 
-The extension rewrites 3 Magento classes:
+The extension rewrites 2 Magento classes:
 - Mage_Core_Model_Layout_Update
 - Mage_Core_Model_Design_Package
 
