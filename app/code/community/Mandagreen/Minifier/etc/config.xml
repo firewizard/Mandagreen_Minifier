@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Mandagreen_Minifier>
-			<version>1.1.1</version>
+			<version>1.2.0</version>
 		</Mandagreen_Minifier>
 	</modules>
 	<global>
@@ -13,16 +13,11 @@
 					<design_package>Mandagreen_Minifier_Core_Model_Design_Package</design_package>
 				</rewrite>
 			</core>
+            <mgminifier>
+                <class>Mandagreen_Minifier_Model</class>
+            </mgminifier>
 		</models>
 
-        <blocks>
-            <page>
-                <rewrite>
-                    <html_head>Mandagreen_Minifier_Page_Block_Html_Head</html_head>
-                </rewrite>
-            </page>
-        </blocks>
-		
 		<helpers>
 			<mgminifier>
 				<class>Mandagreen_Minifier_Helper</class>
@@ -40,6 +35,17 @@
                 </Mandagreen_Minifier>
             </modules>
         </translate>
+
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <mgminifier_clean_data_handles>
+                        <class>mgminifier/observer</class>
+                        <method>cleanDataHandles</method>
+                    </mgminifier_clean_data_handles>
+                </observers>
+            </http_response_send_before>
+        </events>
 	</frontend>
 	
 	<default>
@@ -47,6 +53,7 @@
 			<mgminifier>
 				<active_js>0</active_js>
 				<active_css>1</active_css>
+				<use_in_admin>0</use_in_admin>
                 <merge_css_by_handle>0</merge_css_by_handle>
                 <merge_js_by_handle>0</merge_js_by_handle>
                 <clean_handles>1</clean_handles>

@@ -4,6 +4,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
 {
     const KEY_ENABLE_JS                   = 'dev/mgminifier/active_js';
     const KEY_ENABLE_CSS                  = 'dev/mgminifier/active_css';
+    const KEY_USE_IN_ADMIN                = 'dev/mgminifier/use_in_admin';
     const KEY_MERGE_CSS_BY_HANDLE         = 'dev/mgminifier/merge_css_by_handle';
     const KEY_MERGE_JS_BY_HANDLE          = 'dev/mgminifier/merge_js_by_handle';
     const KEY_CLEAN_HANDLES               = 'dev/mgminifier/clean_handles';
@@ -18,6 +19,12 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
     
     public function getMergedCssUrl($files)
     {
+        $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_CSS)
+            && (
+                (Mage::app()->getStore()->isAdmin() && Mage::getStoreConfigFlag(self::KEY_USE_IN_ADMIN))
+                || !Mage::app()->getStore()->isAdmin()
+            );
+
         #Varien_Profiler::start('Mandagreen_Minifier::getMergedCssUrl');
         // secure or unsecure
         $isSecure = Mage::app()->getRequest()->isSecure();
@@ -35,16 +42,18 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
             $port = $isSecure ? 443 : 80;
         }
 
-        /* add more variables to the hashed name so that merged file name depend on the content */
         $entropy = '';
-        foreach ($files as $file) {
-            if (!is_file($file)) {
-                continue;
-            }
+        if ($canUse) {
+            /* add more variables to the hashed name so that merged file name depend on the content */
+            foreach ($files as $file) {
+                if (!is_file($file)) {
+                    continue;
+                }
 
-            $entropy .= md5_file($file);
+                $entropy .= md5_file($file);
+            }
+            /* end */
         }
-        /* end */
 
         $targetFilename = md5(implode(',', $files) . "|$entropy|{$hostname}|{$port}") . '.css';
         if (is_file($targetDir . DS . $targetFilename)) {
@@ -64,8 +73,14 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
     
     public function beforeMergeCss($file, $contents)
     {
+        $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_CSS)
+            && (
+                (Mage::app()->getStore()->isAdmin() && Mage::getStoreConfigFlag(self::KEY_USE_IN_ADMIN))
+                || !Mage::app()->getStore()->isAdmin()
+            );
+
         $contents = parent::beforeMergeCss($file, $contents);
-        if (!Mage::getStoreConfig(self::KEY_ENABLE_CSS)) {
+        if (!$canUse) {
             return $contents;
         }
 
@@ -116,16 +131,25 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
     
     public function getMergedJsUrl($files)
     {
+        $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_JS)
+            && (
+                (Mage::app()->getStore()->isAdmin() && Mage::getStoreConfigFlag(self::KEY_USE_IN_ADMIN))
+                || !Mage::app()->getStore()->isAdmin()
+            );
+
         #Varien_Profiler::start('Mandagreen_Minifier::getMergedJsUrl');
-        /* add more variables to the hashed name so that merged file name depend on the content */
+
         $entropy = '';
-        foreach( $files as $file) {
-            if (!is_file($file)) { continue; }
-            
-            $entropy .= md5_file($file);
+        if ($canUse) {
+            /* add more variables to the hashed name so that merged file name depend on the content */
+            foreach( $files as $file) {
+                if (!is_file($file)) { continue; }
+
+                $entropy .= md5_file($file);
+            }
+            /* end */
         }
-        /* end */
-        
+
         $hash = md5(implode(',', $files) . "|$entropy");
         $targetFilename = $hash . '.js';
         $targetFilenameMerged = $hash . '.min.js';
@@ -137,20 +161,23 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
             return '';
         }
 
-        if (is_file($targetDir . DS . $targetFilenameMerged)) {
+        if ($canUse && is_file($targetDir . DS . $targetFilenameMerged)) {
             #Varien_Profiler::stop('Mandagreen_Minifier::getMergedJsUrl');
             return Mage::getBaseUrl('media') . $mergerDir . '/' . $targetFilenameMerged;
         }
 
         if (Mage::helper('core')->mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeJs'), 'js')) {
-            if (Mage::getStoreConfig(self::KEY_ENABLE_JS) && !is_file($targetDir . DS . $targetFilenameMerged)) {
-                file_put_contents(
-                    $targetDir . DS . $targetFilenameMerged,
-                    Mandagreen_Minifier_Model_JSMin::minify(file_get_contents($targetDir . DS . $targetFilename)),
-                    LOCK_EX
-                );
+            if ($canUse && !is_file($targetDir . DS . $targetFilenameMerged)) {
+                try {
+                    file_put_contents(
+                        $targetDir . DS . $targetFilenameMerged,
+                        Mandagreen_Minifier_Model_JSMin::minify(file_get_contents($targetDir . DS . $targetFilename)),
+                        LOCK_EX
+                    );
 
-                $targetFilename = $targetFilenameMerged;
+                    $targetFilename = $targetFilenameMerged;
+                } catch (Mandagreen_Minifier_Model_JSMinException $e) {
+                }
             }
 
             #Varien_Profiler::stop('Mandagreen_Minifier::getMergedJsUrl');

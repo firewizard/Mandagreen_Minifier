@@ -23,3 +23,4 @@ CSS - Convert named colors,CSS - Convert named colors
 "Applies only if ""Enable CSS Minifier"" is set to ""Yes"". Convert color: red to color: #f00","Applies only if ""Enable CSS Minifier"" is set to ""Yes"". Convert color: red to color: #f00"
 CSS - Replace Variables,CSS - Replace Variables
 "Applies only if ""Enable CSS Minifier"" is set to ""Yes"". <a href=""http://code.google.com/p/cssmin/wiki/MinifierFilterVariables"">Read more here</a>","Applies only if ""Enable CSS Minifier"" is set to ""Yes"". <a href=""http://code.google.com/p/cssmin/wiki/MinifierFilterVariables"">Read more here</a>"
+Use minifier in Admin area,Use minifier in Admin area

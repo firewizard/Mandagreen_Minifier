@@ -3,7 +3,7 @@
     <sections>
         <dev>
             <groups>
-                <mgminifier translate="label" module="mgminifier">
+                <mgminifier translate="label comment" module="mgminifier">
                     <label>CSS &amp; JS Minifier (by mandagreen.com)</label>
                     <comment><![CDATA[<div style="max-width: 600px; background: #fff; padding: 5px; border: 1px solid #ddd; font-size: 12px; line-height: 14px;">The idea behind layout-handle merging belongs to <a href="http://gordonlesti.com/lestimerge/">Gordon Lesti</a>, based on the initial problem &amp; solution explained by <a href="http://fishpig.co.uk/magento/tutorials/why-you-shouldnt-merge-javascript/">Fishpig</a>.<br />Many thanks to both of them, as well as to the creators of <a href="http://code.google.com/p/cssmin/">CssMin</a> (Joe Scylla) &amp; <a href="https://github.com/rgrove/jsmin-php">JsMin</a> (Douglas Crockford, Ryan Grove, Adam Goforth).<br/><br/><strong>Known Caveats:</strong><br /> &bull; Enabling layout-handle merging can lead to js/css files being loaded in a different order than expected (leading to strange bugs, especially for js merging). <br /> &bull; Files added from PHP won't be grouped properly, creating additional requests.</div>]]></comment>
                     <sort_order>127</sort_order>
@@ -11,7 +11,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <active_js translate="label">
+                        <active_js translate="label comment">
                             <label>Enable javascript minifier</label>
                             <comment><![CDATA[<em>Note:</em> Make sure you test this before using it in production. All js files will be minified, so they should be properly written. Read more at <a href="http://javascript.crockford.com/jsmin.html" target="_blank">javascript.crockford.com/jsmin.html</a>]]></comment>
                             <frontend_type>select</frontend_type>
@@ -22,7 +22,7 @@
                             <show_in_store>1</show_in_store>
                         </active_js>
 
-                        <active_css translate="label">
+                        <active_css translate="label comment">
                             <label>Enable CSS minifier</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -32,18 +32,28 @@
                             <show_in_store>1</show_in_store>
                         </active_css>
 
-                        <merge_js_by_handle translate="label">
+                        <use_in_admin translate="label comment">
+                            <label>Use minifier in Admin area</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_in_admin>
+
+                        <merge_js_by_handle translate="label comment">
                             <label>Merge javascript by handle</label>
                             <frontend_type>select</frontend_type>
                             <comment>Group js files by layout handle (only works if merging is enabled; works with js minifier enabled/disabled).</comment>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>24</sort_order>
+                            <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </merge_js_by_handle>
 
-                        <merge_css_by_handle translate="label">
+                        <merge_css_by_handle translate="label comment">
                             <label>Merge CSS by handle</label>
                             <frontend_type>select</frontend_type>
                             <comment>Group CSS files by layout handle (only works if merging is enabled; works with css minifier enabled/disabled).</comment>
@@ -54,7 +64,7 @@
                             <show_in_store>1</show_in_store>
                         </merge_css_by_handle>
 
-                        <clean_handles translate="label">
+                        <clean_handles translate="label comment">
                             <label>Clean JS &amp; CSS handles</label>
                             <frontend_type>select</frontend_type>
                             <comment>If merging by handle is enabled, it's a good idea to set this to yes (unless debugging).</comment>
@@ -65,7 +75,7 @@
                             <show_in_store>1</show_in_store>
                         </clean_handles>
 
-                        <active_convert_colors translate="label">
+                        <active_convert_colors translate="label comment">
                             <label>CSS - Convert RGB color values</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Convert "rgb(200,60%,5)" to hex "#c89905"]]></comment>
                             <frontend_type>select</frontend_type>
@@ -76,7 +86,7 @@
                             <show_in_store>1</show_in_store>
                         </active_convert_colors>
 
-                        <active_convert_hsl_colors translate="label">
+                        <active_convert_hsl_colors translate="label comment">
                             <label>CSS - Convert HSL color values</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Convert "hsl(200,60%,5)" to hex "#c89905"]]></comment>
                             <frontend_type>select</frontend_type>
@@ -87,7 +97,7 @@
                             <show_in_store>1</show_in_store>
                         </active_convert_hsl_colors>
 
-                        <active_compress_colors translate="label">
+                        <active_compress_colors translate="label comment">
                             <label>CSS - Compress color values</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Compress color values from "#aabbcc" to "#abc"]]></comment>
                             <frontend_type>select</frontend_type>
@@ -98,7 +108,7 @@
                             <show_in_store>1</show_in_store>
                         </active_compress_colors>
 
-                        <active_compress_unit_values translate="label">
+                        <active_compress_unit_values translate="label comment">
                             <label>CSS - Compress unit values</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Compresses "0.5px" to ".5px", "0px" to "0" and "0 0 0 0" to "0"]]></comment>
                             <frontend_type>select</frontend_type>
@@ -109,7 +119,7 @@
                             <show_in_store>1</show_in_store>
                         </active_compress_unit_values>
 
-                        <active_convert_fontweight translate="label">
+                        <active_convert_fontweight translate="label comment">
                             <label>CSS - Convert font-weight values</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Convert font-weight: bold to font-weight:700 and font-weight: normal to font-weight:400]]></comment>
                             <frontend_type>select</frontend_type>
@@ -120,7 +130,7 @@
                             <show_in_store>1</show_in_store>
                         </active_convert_fontweight>
 
-                        <active_convert_namedcolors translate="label">
+                        <active_convert_namedcolors translate="label comment">
                             <label>CSS - Convert named colors</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". Convert color: red to color: #f00]]></comment>
                             <frontend_type>select</frontend_type>
@@ -131,7 +141,7 @@
                             <show_in_store>1</show_in_store>
                         </active_convert_namedcolors>
 
-                        <active_replace_variables translate="label">
+                        <active_replace_variables translate="label comment">
                             <label>CSS - Replace Variables</label>
                             <comment><![CDATA[Applies only if "Enable CSS Minifier" is set to "Yes". <a href="http://code.google.com/p/cssmin/wiki/MinifierFilterVariables">Read more here</a>]]></comment>
                             <frontend_type>select</frontend_type>

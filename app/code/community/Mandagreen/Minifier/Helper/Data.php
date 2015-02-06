@@ -2,7 +2,7 @@
 
 class Mandagreen_Minifier_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const DATA_HANDLE = 'data-handle';
+    const DATA_HANDLE = 'data-mgm-handle';
 
     public function getDataHandleRegExp()
     {
