@@ -33,8 +33,8 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
             }
 
             $helper = Mage::helper('mgminifier');
-            foreach ($methods as $method) {
-                foreach ($xml->children() as $handle => $child) {
+            foreach ($xml->children() as $handle => $child) {
+				foreach ($methods as $method) {
                     $items = $child->xpath(".//action[@method='".$method."']");
                     foreach ($items as $item) {
                         if ($method == 'addItem' && (
@@ -47,9 +47,9 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
                         if (count($params)) {
                             foreach ($params as $param){
                                 if (trim($param)) {
-                                    $param->{0} = (string)$param . ' ' . $helper->getDataHandleParam($handle);
+                                    $param[0] = (string)$param . ' ' . $helper->getDataHandleParam($handle);
                                 } else {
-                                    $param->{0} = $helper->getDataHandleParam($handle);
+                                    $param[0] = $helper->getDataHandleParam($handle);
                                 }
                             }
                         } else {
