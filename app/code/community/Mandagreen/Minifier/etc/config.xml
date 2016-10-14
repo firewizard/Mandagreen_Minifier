@@ -5,6 +5,7 @@
 			<version>1.2.0</version>
 		</Mandagreen_Minifier>
 	</modules>
+
 	<global>
 		<models>
 			<core>
@@ -24,7 +25,19 @@
 			</mgminifier>
 		</helpers>
 	</global>
-	
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Mandagreen_Minifier>
+					<files>
+						<default>Mandagreen_Minifier.csv</default>
+					</files>
+				</Mandagreen_Minifier>
+			</modules>
+		</translate>
+	</adminhtml>
+
 	<frontend>
         <translate>
             <modules>
