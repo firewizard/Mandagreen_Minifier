@@ -109,22 +109,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
             "CompressExpressionValues"      => false,
         );
         
-        $parserPlugins = array(
-            'Comment'     => true,
-            'String'      => true,
-            'Url'         => true,
-            'Expression'  => true,
-            'Ruleset'     => true,
-            'AtCharset'   => true,
-            'AtFontFace'  => true,
-            'AtImport'    => true,
-            'AtKeyframes' => false,
-            'AtMedia'     => true,
-            'AtPage'      => true,
-            'AtVariables' => true,
-        );
-        
-        $ret = Mandagreen_Minifier_Model_CssMin::minify($contents, $filters, $plugins, $parserPlugins);
+        $ret = Mandagreen_Minifier_Model_CssMin::minify($contents, $filters, $plugins);
         #Varien_Profiler::stop($profilerKey);
         return $ret;
     }
