@@ -99,13 +99,13 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         );
         
         $plugins = array(
-            "Variables"                     => (bool)Mage::getStoreConfig(self::KEY_ENABLE_REPLACE_VARIABLES),
-            "ConvertFontWeight"             => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_FONT_WEIGHT),
-            "ConvertHslColors"              => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_HSL_COLORS),
-            "ConvertRgbColors"              => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_RGB_COLORS),
-            "ConvertNamedColors"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_NAMED_COLORS),
-            "CompressColorValues"           => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRESS_COLORS),
-            "CompressUnitValues"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRES_UNIT_VALUES),
+            "Variables"                     => (bool)Mage::getStoreConfig(KEY_ENABLE_REPLACE_VARIABLES),
+            "ConvertFontWeight"             => (bool)Mage::getStoreConfig(KEY_ENABLE_CONVERT_FONT_WEIGHT),
+            "ConvertHslColors"              => (bool)Mage::getStoreConfig(KEY_ENABLE_CONVERT_HSL_COLORS),
+            "ConvertRgbColors"              => (bool)Mage::getStoreConfig(KEY_ENABLE_CONVERT_RGB_COLORS),
+            "ConvertNamedColors"            => (bool)Mage::getStoreConfig(KEY_ENABLE_CONVERT_NAMED_COLORS),
+            "CompressColorValues"           => (bool)Mage::getStoreConfig(KEY_ENABLE_COMPRESS_COLORS),
+            "CompressUnitValues"            => (bool)Mage::getStoreConfig(KEY_ENABLE_COMPRES_UNIT_VALUES),
             "CompressExpressionValues"      => false,
         );
         
