@@ -2,21 +2,21 @@
 
 class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Design_Package
 {
-    const KEY_ENABLE_JS                   = 'dev/mgminifier/active_js';
-    const KEY_ENABLE_CSS                  = 'dev/mgminifier/active_css';
-    const KEY_USE_IN_ADMIN                = 'dev/mgminifier/use_in_admin';
-    const KEY_MERGE_CSS_BY_HANDLE         = 'dev/mgminifier/merge_css_by_handle';
-    const KEY_MERGE_JS_BY_HANDLE          = 'dev/mgminifier/merge_js_by_handle';
-    const KEY_CLEAN_HANDLES               = 'dev/mgminifier/clean_handles';
-    const KEY_ENABLE_CONVERT_RGB_COLORS   = 'dev/mgminifier/active_convert_colors';
-    const KEY_ENABLE_CONVERT_HSL_COLORS   = 'dev/mgminifier/active_compress_hsl_colors';
-    const KEY_ENABLE_COMPRESS_COLORS      = 'dev/mgminifier/active_compress_colors';
-    const KEY_ENABLE_COMPRES_UNIT_VALUES  = 'dev/mgminifier/active_compress_unit_values';
-    const KEY_ENABLE_CONVERT_FONT_WEIGHT  = 'dev/mgminifier/active_convert_fontweight';
+    const KEY_ENABLE_JS = 'dev/mgminifier/active_js';
+    const KEY_ENABLE_CSS = 'dev/mgminifier/active_css';
+    const KEY_USE_IN_ADMIN = 'dev/mgminifier/use_in_admin';
+    const KEY_MERGE_CSS_BY_HANDLE = 'dev/mgminifier/merge_css_by_handle';
+    const KEY_MERGE_JS_BY_HANDLE = 'dev/mgminifier/merge_js_by_handle';
+    const KEY_CLEAN_HANDLES = 'dev/mgminifier/clean_handles';
+    const KEY_ENABLE_CONVERT_RGB_COLORS = 'dev/mgminifier/active_convert_colors';
+    const KEY_ENABLE_CONVERT_HSL_COLORS = 'dev/mgminifier/active_compress_hsl_colors';
+    const KEY_ENABLE_COMPRESS_COLORS = 'dev/mgminifier/active_compress_colors';
+    const KEY_ENABLE_COMPRES_UNIT_VALUES = 'dev/mgminifier/active_compress_unit_values';
+    const KEY_ENABLE_CONVERT_FONT_WEIGHT = 'dev/mgminifier/active_convert_fontweight';
     const KEY_ENABLE_CONVERT_NAMED_COLORS = 'dev/mgminifier/active_convert_namedcolors';
-    const KEY_ENABLE_REPLACE_VARIABLES    = 'dev/mgminifier/active_replace_variables';
-    
-    
+    const KEY_ENABLE_REPLACE_VARIABLES = 'dev/mgminifier/active_replace_variables';
+
+
     public function getMergedCssUrl($files)
     {
         $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_CSS)
@@ -62,7 +62,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         }
 
         // merge into target file
-        if ($this->_mergeFiles($files, $targetDir.DS.$targetFilename, false, array($this, 'beforeMergeCss'), 'css')) {
+        if ($this->_mergeFiles($files, $targetDir . DS . $targetFilename, false, array($this, 'beforeMergeCss'), 'css')) {
             #Varien_Profiler::stop('Mandagreen_Minifier::getMergedCssUrl');
             return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
         }
@@ -70,7 +70,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         #Varien_Profiler::stop('Mandagreen_Minifier::getMergedCssUrl');
         return '';
     }
-    
+
     public function beforeMergeCss($file, $contents)
     {
         $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_CSS)
@@ -86,34 +86,34 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
 
         $profilerKey = "Mandagreen_Minifier::beforeMergeCss ($file)";
         #Varien_Profiler::start($profilerKey);
-        
+
         $filters = array(
-            "ImportImports"                 => false,
-            "RemoveComments"                => true,
-            "RemoveEmptyRulesets"           => true,
-            "RemoveEmptyAtBlocks"           => true,
-            "ConvertLevel3AtKeyframes"      => false,
-            "ConvertLevel3Properties"       => false,
-            "Variables"                     => true,
+            "ImportImports" => false,
+            "RemoveComments" => true,
+            "RemoveEmptyRulesets" => true,
+            "RemoveEmptyAtBlocks" => true,
+            "ConvertLevel3AtKeyframes" => false,
+            "ConvertLevel3Properties" => false,
+            "Variables" => true,
             "RemoveLastDelarationSemiColon" => true
         );
-        
+
         $plugins = array(
-            "Variables"                     => (bool)Mage::getStoreConfig(self::KEY_ENABLE_REPLACE_VARIABLES),
-            "ConvertFontWeight"             => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_FONT_WEIGHT),
-            "ConvertHslColors"              => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_HSL_COLORS),
-            "ConvertRgbColors"              => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_RGB_COLORS),
-            "ConvertNamedColors"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_NAMED_COLORS),
-            "CompressColorValues"           => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRESS_COLORS),
-            "CompressUnitValues"            => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRES_UNIT_VALUES),
-            "CompressExpressionValues"      => false,
+            "Variables" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_REPLACE_VARIABLES),
+            "ConvertFontWeight" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_FONT_WEIGHT),
+            "ConvertHslColors" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_HSL_COLORS),
+            "ConvertRgbColors" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_RGB_COLORS),
+            "ConvertNamedColors" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_CONVERT_NAMED_COLORS),
+            "CompressColorValues" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRESS_COLORS),
+            "CompressUnitValues" => (bool)Mage::getStoreConfig(self::KEY_ENABLE_COMPRES_UNIT_VALUES),
+            "CompressExpressionValues" => false,
         );
-        
+
         $ret = Mandagreen_Minifier_Model_CssMin::minify($contents, $filters, $plugins);
         #Varien_Profiler::stop($profilerKey);
         return $ret;
     }
-    
+
     public function getMergedJsUrl($files)
     {
         $canUse = Mage::getStoreConfigFlag(self::KEY_ENABLE_JS)
@@ -127,8 +127,10 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         $entropy = '';
         if ($canUse) {
             /* add more variables to the hashed name so that merged file name depend on the content */
-            foreach( $files as $file) {
-                if (!is_file($file)) { continue; }
+            foreach ($files as $file) {
+                if (!is_file($file)) {
+                    continue;
+                }
 
                 $entropy .= md5_file($file);
             }
@@ -176,5 +178,20 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
     public function beforeMergeJs($file, $contents)
     {
         return rtrim($contents, ';') . ';';
+    }
+
+    /**
+     * Override method to skip replacement of data:image/ url's
+     *
+     * @param string $uri
+     * @return string
+     */
+    protected function _prepareUrl($uri)
+    {
+        if (0 === strpos($uri, 'data:')) {
+            return $uri;
+        }
+
+        return parent::_prepareUrl($uri);
     }
 }
