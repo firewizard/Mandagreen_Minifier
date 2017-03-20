@@ -5,6 +5,8 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
     const KEY_ENABLE_JS = 'dev/mgminifier/active_js';
     const KEY_ENABLE_CSS = 'dev/mgminifier/active_css';
     const KEY_USE_IN_ADMIN = 'dev/mgminifier/use_in_admin';
+    const KEY_USE_FOR_NAMING = 'dev/mgminifier/use_for_naming';
+    const KEY_VERSION = 'dev/mgminifier/version_prefix';
     const KEY_MERGE_CSS_BY_HANDLE = 'dev/mgminifier/merge_css_by_handle';
     const KEY_MERGE_JS_BY_HANDLE = 'dev/mgminifier/merge_js_by_handle';
     const KEY_CLEAN_HANDLES = 'dev/mgminifier/clean_handles';
@@ -43,7 +45,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         }
 
         $entropy = '';
-        if ($canUse) {
+        if ($canUse || Mage::getStoreConfigFlag(self::KEY_USE_FOR_NAMING)) {
             /* add more variables to the hashed name so that merged file name depend on the content */
             foreach ($files as $file) {
                 if (!is_file($file)) {
@@ -53,6 +55,8 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
                 $entropy .= md5_file($file);
             }
             /* end */
+
+            $entropy .= Mage::getStoreConfig(self::KEY_VERSION);
         }
 
         $targetFilename = md5(implode(',', $files) . "|$entropy|{$hostname}|{$port}") . '.css';
@@ -125,7 +129,7 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
         #Varien_Profiler::start('Mandagreen_Minifier::getMergedJsUrl');
 
         $entropy = '';
-        if ($canUse) {
+        if ($canUse || Mage::getStoreConfigFlag(self::KEY_USE_FOR_NAMING)) {
             /* add more variables to the hashed name so that merged file name depend on the content */
             foreach ($files as $file) {
                 if (!is_file($file)) {
@@ -135,6 +139,8 @@ class Mandagreen_Minifier_Core_Model_Design_Package extends Mage_Core_Model_Desi
                 $entropy .= md5_file($file);
             }
             /* end */
+
+            $entropy .= Mage::getStoreConfig(self::KEY_VERSION);
         }
 
         $hash = md5(implode(',', $files) . "|$entropy");
