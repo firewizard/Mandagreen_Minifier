@@ -14,7 +14,7 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
     {
         $xml = parent::getFileLayoutUpdatesXml($area, $package, $theme, $storeId);
-        if(Mage::getDesign()->getArea() != 'adminhtml') {
+        if (Mage::getDesign()->getArea() != 'adminhtml') {
             $shouldMergeJs = Mage::getStoreConfigFlag('dev/js/merge_files')
                 && Mage::getStoreConfigFlag(Mandagreen_Minifier_Core_Model_Design_Package::KEY_MERGE_JS_BY_HANDLE);
 
@@ -22,20 +22,20 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
                 && Mage::getStoreConfigFlag(Mandagreen_Minifier_Core_Model_Design_Package::KEY_MERGE_CSS_BY_HANDLE);
 
             $methods = array();
-            if($shouldMergeJs) {
+            if ($shouldMergeJs) {
                 $methods[] = 'addJs';
             }
-            if($shouldMergeCss) {
+            if ($shouldMergeCss) {
                 $methods[] = 'addCss';
             }
-            if($shouldMergeJs || $shouldMergeCss) {
+            if ($shouldMergeJs || $shouldMergeCss) {
                 $methods[] = 'addItem';
             }
 
             $helper = Mage::helper('mgminifier');
             foreach ($methods as $method) {
                 foreach ($xml->children() as $handle => $child) {
-                    $items = $child->xpath(".//action[@method='".$method."']");
+                    $items = $child->xpath(".//action[@method='" . $method . "']");
                     foreach ($items as $item) {
                         if ($method == 'addItem' && (
                                 (!$shouldMergeCss && (string)$item->{'type'} == 'skin_css') ||
@@ -45,7 +45,7 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
 
                         $params = $item->xpath("params");
                         if (count($params)) {
-                            foreach ($params as $param){
+                            foreach ($params as $param) {
                                 if (trim($param)) {
                                     $param->{0} = (string)$param . ' ' . $helper->getDataHandleParam($handle);
                                 } else {
