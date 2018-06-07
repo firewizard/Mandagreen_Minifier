@@ -172,6 +172,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </active_replace_variables>
+
+                        <handle_equivalences translate="label comment">
+                            <label>Handle equivalences</label>
+                            <comment><![CDATA[When merging by handles is on, special handles like PRODUCT_TYPE_configurable lead to multiple merged files. You can use this field to "translate" these special handles to common handles. Ex: PRODUCT_TYPE_configurable: catalog_product_view. <br><strong>Write exactly one source:target pair on a separate line</strong>]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </handle_equivalences>
                     </fields>
                 </mgminifier>
             </groups>

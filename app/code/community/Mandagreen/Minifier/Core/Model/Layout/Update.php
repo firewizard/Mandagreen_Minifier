@@ -32,9 +32,13 @@ class Mandagreen_Minifier_Core_Model_Layout_Update extends Mage_Core_Model_Layou
                 $methods[] = 'addItem';
             }
 
+            /** @var Mandagreen_Minifier_Helper_Data $helper */
             $helper = Mage::helper('mgminifier');
+
             foreach ($methods as $method) {
                 foreach ($xml->children() as $handle => $child) {
+                    $handle = $helper->getMergeHandleEquivalence($handle);
+
                     $items = $child->xpath(".//action[@method='" . $method . "']");
                     foreach ($items as $item) {
                         if ($method == 'addItem' && (
